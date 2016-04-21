@@ -23,6 +23,11 @@
                 this.Length = Length;
                 this.Type = Type;
             }
+
+            public override string ToString()
+            {
+                return this.Length + " " + this.Type.ToString();
+            }
         }
 
         public static Item Calculate(double value)
