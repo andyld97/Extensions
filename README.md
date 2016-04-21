@@ -15,5 +15,5 @@ ConvertLength.Item nSize = VFS.Language.ConvertLength.Calculate(1024);
 2. Calculate e.g. 1024 KB to MB
 
 ```cs
-ConvertLength.Item nSize = ConvertLength.Calculate(new ConvertLength.Item(1024, VFS.Language.ConvertLength.Type_.KB), new ConvertLength.Item(0.0, VFS.Language.ConvertLength.Type_.MB));
+ConvertLength.Item nSize = ConvertLength.Calculate(new ConvertLength.Item(1024, ConvertLength.Type_.KB), new ConvertLength.Item(0.0, ConvertLength.Type_.MB));
 ```
