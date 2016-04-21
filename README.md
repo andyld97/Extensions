@@ -7,7 +7,7 @@ ConvertLength:
 1. Calculate the length directly into the unit prefix which fits:
 
 ```cs
-ConvertLength.Item nSize = VFS.Language.ConvertLength.Calculate(1024);
+ConvertLength.Item nSize = ConvertLength.Calculate(1024);
 // nSize.Length = Your new length
 // nSize.Type = Your new unit prefix.
 ```
