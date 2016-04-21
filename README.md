@@ -1,10 +1,10 @@
 # Extensions
 Some useful code that you need from time to time
 
-Examples:
+ConvertLength:
 ---------
 
-1. Calculate the length directly into the type which fits:
+1. Calculate the length directly into the unit prefix which fits:
 
 ```cs
 ConvertLength.Item nSize = VFS.Language.ConvertLength.Calculate(1024);
