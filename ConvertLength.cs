@@ -53,7 +53,7 @@ namespace Extensions
         {
             // Calculate difference:
             int difference = (int)source.Type - (int)toConvert;
-            return new Item(Math.Round(difference < 0 ? source.Length / Math.Pow(1024, (int)Math.Abs(difference)) : source.Length * Math.Pow(1024, (int)Math.Abs(difference)), 2), destination.Type);
+            return new Item(Math.Round(difference < 0 ? source.Length / Math.Pow(1024, (int)Math.Abs(difference)) : source.Length * Math.Pow(1024, (int)Math.Abs(difference)), 2), toConvert);
         }
     }
 }
