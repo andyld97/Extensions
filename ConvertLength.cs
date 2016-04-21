@@ -49,10 +49,10 @@ namespace Extensions
             return new Item(Math.Round(value / Math.Pow(1024, index), 2), (Type_)index);
         }
 
-        public static Item Calculate(Item source, Item destination)
+        public static Item Calculate(Item source, Type_ toConvert)
         {
             // Calculate difference:
-            int difference = (int)source.Type - (int)destination.Type;
+            int difference = (int)source.Type - (int)toConvert;
             return new Item(Math.Round(difference < 0 ? source.Length / Math.Pow(1024, (int)Math.Abs(difference)) : source.Length * Math.Pow(1024, (int)Math.Abs(difference)), 2), destination.Type);
         }
     }
