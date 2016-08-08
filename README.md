@@ -17,3 +17,15 @@ ConvertLength.Item nSize = ConvertLength.Calculate(1024);
 ```cs
 ConvertLength.Item nSize = ConvertLength.Calculate(new ConvertLength.Item(1024.0, ConvertLength.Type_.KB), ConvertLength.Type_.MB);
 ```
+
+FileAssociation
+---------
+
+Useful for associate a file extension with your program (with icon)
+
+```cs
+// Add
+FileAssociation.SetFileAssociation("_NAME_", "_EXTENSION_", "_PATH_TO_ICO", "_PATH_TO_EXE"); 
+// Delete
+FileAssociation.DeleteFileAssociation("_NAME_", "_EXTENSION_");
+```
