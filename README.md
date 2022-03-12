@@ -1,7 +1,7 @@
 # Extensions
 Some useful code that you need from time to time
 
-ConvertLength:
+ByteUnit:
 ---------
 
 1. Calculate the length directly into the unit prefix which fits:
