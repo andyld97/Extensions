@@ -7,7 +7,7 @@ ConvertLength:
 1. Calculate the length directly into the unit prefix which fits:
 
 ```cs
-ConvertLength.Item nSize = ConvertLength.Calculate(1024);
+var nSize = ByteUnit.Calculate(1024);
 // nSize.Length = Your new length
 // nSize.Type = Your new unit prefix.
 ```
@@ -15,7 +15,7 @@ ConvertLength.Item nSize = ConvertLength.Calculate(1024);
 2. Calculate e.g. 1024 KB to MB
 
 ```cs
-ConvertLength.Item nSize = ConvertLength.Calculate(new ConvertLength.Item(1024.0, ConvertLength.Type_.KB), ConvertLength.Type_.MB);
+var nSize = ByteUnit.Calculate(new ByteUnit(1024.0, Unit.KB), Unit.MB);
 ```
 
 FileAssociation
