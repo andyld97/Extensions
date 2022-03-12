@@ -6,39 +6,23 @@ using System.Threading.Tasks;
 
 namespace Extensions
 {
-    public class ConvertLength
+    public class ByteUnit
     {
-        public enum Type_
+        public double Length { get; set; }
+
+        public Unit Type { get; set; }
+
+        public ByteUnit(double length, Unit type)
         {
-            B = 1,
-            KB = 2,
-            MB = 3,
-            GB = 4,
-            TB = 5
+            Length = length;
+            Type = type;
         }
 
-        public struct Item
-        {
-            public double Length;
-            public Type_ Type;
-
-            public Item(double Length, Type_ Type)
-            {
-                this.Length = Length;
-                this.Type = Type;
-            }
-
-            public override string ToString()
-            {
-                return this.Length + " " + this.Type.ToString();
-            }
-        }
-
-        public static Item Calculate(double value)
+        public static ByteUnit Calculate(double value)
         {
             // Get right unit prefix
-            int index = 0;
-            double nValue = value;
+            int index = 1;
+            double nValue = value;           
 
             while (nValue > 1024.0)
             {
@@ -46,14 +30,33 @@ namespace Extensions
                 index++;
             }
 
-            return new Item(Math.Round(value / Math.Pow(1024, index), 2), (Type_)index);
+            return new ByteUnit(Math.Round(nValue, 2), (Unit)index);
         }
 
-        public static Item Calculate(Item source, Type_ toConvert)
+        public static ByteUnit Calculate(ByteUnit source, Unit toConvert)
         {
             // Calculate difference:
             int difference = (int)source.Type - (int)toConvert;
-            return new Item(Math.Round(difference < 0 ? source.Length / Math.Pow(1024, (int)Math.Abs(difference)) : source.Length * Math.Pow(1024, (int)Math.Abs(difference)), 2), toConvert);
+            return new ByteUnit(Math.Round(difference < 0 ? source.Length / Math.Pow(1024, (int)Math.Abs(difference)) : source.Length * Math.Pow(1024, (int)Math.Abs(difference)), 2), toConvert);
         }
+
+        public override string ToString()
+        {
+            return $"{Length:G} {Type}";
+        }
+
+        public string ToString(bool inSeconds)
+        {
+            return $"{ToString()}/s";
+        }
+    }
+    
+    public enum Unit
+    {
+        B = 1,
+        KB = 2,
+        MB = 3,
+        GB = 4,
+        TB = 5
     }
 }
