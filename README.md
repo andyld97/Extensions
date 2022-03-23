@@ -40,6 +40,8 @@ await ZipHelper.CreateZipFileFromDirectoryAsync("F:\Data", "C:\Users\test\Deskto
 // Extract a zip archive
 await ZipHelper.ExtractZipFileAsync("C:\Users\test\Desktop\test.zip", "F:\Data");
 ```
+- You can also pass a `byte[]` to `ExtractZipFileAsync(...)`!
+- All methods are available synchronously (e.g. `ExtractZipFiles(...)`) and asynchronously (using `async` and `await`)!
 
 Hash
 ---
