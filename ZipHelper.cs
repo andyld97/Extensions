@@ -85,6 +85,10 @@ namespace Extensions
                     if (!System.IO.Directory.Exists(parentDirectory))
                         System.IO.Directory.CreateDirectory(parentDirectory);
 
+                    // Ignore empty folder entries
+                    if (string.IsNullOrEmpty(entry.Name) && entry.Length == 0)
+                        continue;
+
                     // Write the file to disk
                     using (System.IO.FileStream stream = new System.IO.FileStream(targetPath, System.IO.FileMode.Create))
                     using (var e = entry.Open())
@@ -110,6 +114,10 @@ namespace Extensions
                     // Create parent directory (if it doesn't exists)
                     if (!System.IO.Directory.Exists(parentDirectory))
                         System.IO.Directory.CreateDirectory(parentDirectory);
+
+                    // Ignore empty folder entries
+                    if (string.IsNullOrEmpty(entry.Name) && entry.Length == 0)
+                        continue;
 
                     // Write the file to disk
                     using (System.IO.FileStream stream = new System.IO.FileStream(targetPath, System.IO.FileMode.Create))
@@ -138,6 +146,10 @@ namespace Extensions
                     if (!System.IO.Directory.Exists(parentDirectory))
                         System.IO.Directory.CreateDirectory(parentDirectory);
 
+                    // Ignore empty folder entries
+                    if (string.IsNullOrEmpty(entry.Name) && entry.Length == 0)
+                        continue;
+
                     // Write the file to disk
                     using (System.IO.FileStream stream = new System.IO.FileStream(targetPath, System.IO.FileMode.Create))
                     using (var e = entry.Open())
@@ -163,6 +175,10 @@ namespace Extensions
                     // Create parent directory (if it doesn't exists)
                     if (!System.IO.Directory.Exists(parentDirectory))
                         System.IO.Directory.CreateDirectory(parentDirectory);
+
+                    // Ignore empty folder entries
+                    if (string.IsNullOrEmpty(entry.Name) && entry.Length == 0)
+                        continue;
 
                     // Write the file to disk
                     using (System.IO.FileStream stream = new System.IO.FileStream(targetPath, System.IO.FileMode.Create))
