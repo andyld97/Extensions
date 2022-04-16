@@ -42,6 +42,7 @@ await ZipHelper.ExtractZipFileAsync("C:\Users\test\Desktop\test.zip", "F:\Data")
 ```
 - You can also pass a `byte[]` to `ExtractZipFileAsync(...)`!
 - All methods are available synchronously (e.g. `ExtractZipFiles(...)`) and asynchronously (using `async` and `await`)!
+- If you are not using .NET Core there is no `System.IO.Path.GetRelative` Method. But you can use this [port](https://gist.github.com/antonKrouglov/07ccc117cb8c30ad8994446a86c062e5) instead!
 
 Hash
 ---
