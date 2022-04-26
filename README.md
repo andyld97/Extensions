@@ -47,10 +47,10 @@ ZipHelper
 ---
 ```cs
 // Create a zip archive
-await ZipHelper.CreateZipFileFromDirectoryAsync("F:\Data", "C:\Users\test\Desktop\test.zip");
+await ZipHelper.CreateZipFileFromDirectoryAsync(@"F:\Data", @"C:\Users\test\Desktop\test.zip");
 
 // Extract a zip archive
-await ZipHelper.ExtractZipFileAsync("C:\Users\test\Desktop\test.zip", "F:\Data");
+await ZipHelper.ExtractZipFileAsync(@"C:\Users\test\Desktop\test.zip", @"F:\Data");
 ```
 - You can also pass a `byte[]` to `ExtractZipFileAsync(...)`!
 - All methods are available synchronously (e.g. `ExtractZipFiles(...)`) and asynchronously (using `async` and `await`)!
@@ -60,5 +60,5 @@ Hash
 ---
 ```cs
 // Create hash from file
-string hash = await Hash.CreateHashFromFileAsync("F:\Data\test.iso");
+string hash = await Hash.CreateHashFromFileAsync(@"F:\Data\test.iso");
 ```
