@@ -4,18 +4,30 @@ Some useful code that you need from time to time
 ByteUnit
 ---
 
-1. Calculate the length directly into the unit prefix which fits:
+1. Calculate the length directly into the unit prefix which is appropriate:
 
 ```cs
-var nSize = ByteUnit.Calculate(1024);
-// nSize.Length = Your new length
-// nSize.Type = Your new unit prefix.
+var value = ByteUnit.FindUnit(1024);
+// value.Length = Your new length
+// value.Type = Your new unit prefix.
 ```
 
 2. Calculate e.g. 1024 KB to MB
 
 ```cs
-var nSize = ByteUnit.Calculate(new ByteUnit(1024.0, Unit.KB), Unit.MB);
+var value = ByteUnit.From(new ByteUnit(1024.0, Unit.KB), Unit.MB);
+// or alternative
+var value = ByteUnit.From(ByteUnit.FromKB(1024), Unit.MB);
+```
+
+3. Compare two `ByteUnit`s
+```cs
+var fileSize = ByteUnit.FromFileInfo(new System.IO.FileInfo("PATH"));
+
+if (fileSize < ByteUnit.FromMB(10))
+{
+    // e.g. only download this file if it's less than 10MB big.
+}
 ```
 
 FileAssociation
