@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
-namespace Extensions
+namespace Units
 {
     /// <summary>
     /// A little helper class to convert bytes (e.g. 5GB to 5120MB)
@@ -22,7 +20,7 @@ namespace Extensions
         }
 
         /// <summary>
-        /// Calculates an approripate unit and returns the calculated ByteUnit instance
+        /// Calculates an appropriate unit and returns the calculated ByteUnit instance
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -121,11 +119,31 @@ namespace Extensions
         }
 
         /// <summary>
+        /// Returns a ByteUnit instance in Bytes
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static ByteUnit FromB(double bytes)
+        {
+            return new ByteUnit(bytes, Unit.B);
+        }
+
+        /// <summary>
         /// Returns a ByteUnit instance in Kilobytes
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
         public static ByteUnit FromKB(long bytes)
+        {
+            return new ByteUnit(bytes, Unit.KB);
+        }
+
+        /// <summary>
+        /// Returns a ByteUnit instance in Kilobytes
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static ByteUnit FromKB(double bytes)
         {
             return new ByteUnit(bytes, Unit.KB);
         }
@@ -141,11 +159,31 @@ namespace Extensions
         }
 
         /// <summary>
+        /// Returns a ByteUnit instance in Megabytes
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static ByteUnit FromMB(double bytes)
+        {
+            return new ByteUnit(bytes, Unit.MB);
+        }
+
+        /// <summary>
         /// Returns a ByteUnit instance in Gigabytes
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
         public static ByteUnit FromGB(long bytes)
+        {
+            return new ByteUnit(bytes, Unit.GB);
+        }
+
+        /// <summary>
+        /// Returns a ByteUnit instance in Gigabytes
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static ByteUnit FromGB(double bytes)
         {
             return new ByteUnit(bytes, Unit.GB);
         }
@@ -158,6 +196,67 @@ namespace Extensions
         public static ByteUnit FromTB(long bytes)
         {
             return new ByteUnit(bytes, Unit.TB);
+        }
+
+        /// <summary>
+        /// Returns a ByteUnit instance in Terabytes
+        /// </summary>
+        /// <param name="bytes"></param>
+        public static ByteUnit FromTB(double bytes)
+        {
+            return new ByteUnit(bytes, Unit.TB);
+        }
+
+        /// <summary>
+        /// Parses a string to byte unit (e.g. 10 GB/s, 5MB)
+        /// </summary>
+        /// <param name="value">The value you want to parse</param>
+        /// <returns>A ByteUnit instance with the result</returns>
+        public static ByteUnit Parse(string value)
+        {
+            value = value.ToUpper().Replace("/S", string.Empty);
+
+            double? doubleValue = null;
+
+            var match = Regex.Match(value, @"\d+");
+            if (match.Success)
+            {
+                string number = match.Value;
+                doubleValue = double.Parse(number, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture);
+            }
+
+            if (doubleValue == null)
+                throw new ParseException("No valid number found!");
+
+            // Guess the unit (names must be reversed to ensure that B will used as last value to ensure MB etc will not handled as B)
+            foreach (var name in Enum.GetNames(typeof(Unit)).Reverse())
+            {
+                if (value.Contains(name.ToUpper()))
+                    return new ByteUnit(doubleValue.Value, (Unit)Enum.Parse(typeof(Unit), name));
+            }
+
+            throw new ParseException("Unit couldn't be determined!");
+        }
+
+        /// <summary>
+        /// Parses a string to byte unit (e.g. 10 GB/s, 5MB)
+        /// </summary>
+        /// <param name="value">The value you want to parse</param>
+        /// <param name="result">The result</param>
+        /// <returns>A ByteUnit instance with the result</returns>
+        public static bool TryParse(string value, out ByteUnit result)
+        {
+            result = null;
+
+            try
+            {
+                result = Parse(value);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -189,6 +288,17 @@ namespace Extensions
             double length = Math.Round(difference < 0 ? source.Length / Math.Pow(1024, posDiff) : source.Length * Math.Pow(1024, posDiff), 2);
             return new ByteUnit(length, targetUnit);
         }
+
+        /// <summary>
+        /// Converts this instance to another unit
+        /// </summary>
+        /// <param name="targetUnit">The target unit to convert to</param>
+        /// <returns></returns>
+        public ByteUnit To(Unit targetUnit)
+        {
+            return From(this, targetUnit);
+        }
+
         #endregion
 
         #region ToString
@@ -207,6 +317,13 @@ namespace Extensions
             return $"{ToString()}/s";
         }
         #endregion
+    }
+
+    public class ParseException : Exception
+    {
+        public ParseException() { }
+
+        public ParseException(string message) : base(message) { }
     }
 
     public enum Unit

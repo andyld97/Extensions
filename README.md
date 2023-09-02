@@ -3,6 +3,8 @@ Some useful code that you need from time to time
 
 ByteUnit
 ---
+Now available as a nuget package:   
+`dotnet add package ByteUnit --version 1.0.2`
 
 1. Calculate the length directly into the unit prefix which is appropriate:
 
@@ -29,6 +31,21 @@ if (fileSize < ByteUnit.FromMB(10))
     // e.g. only download this file if it's less than 10MB big.
 }
 ```
+
+4. Easy conversation
+```cs
+var value = ByteUnit.Parse("999.5 MB/s");
+var gb = value.To(Unit.GB);
+```
+
+5. Parse from string 
+```cs
+var value = ByteUnit.Parse("100 MB");
+// var value = ByteUnit.Parse("999.5 MB/s");
+// you can also use TryParse 
+```
+
+ByteUnit overrides the default `ToString()`-Method, so you can use it to format your values in strings. There is also an overload for "bytes per seconds", this will add `/s` to end of the formatted string!
 
 FileAssociation
 ---
